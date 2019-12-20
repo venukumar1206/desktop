@@ -5026,14 +5026,9 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   private async onPullRequestChanged(
-    gitHubRepository: GitHubRepository,
+    repository: Repository,
     openPullRequests: ReadonlyArray<PullRequest>
   ) {
-    const repository = this.findRepositoryByGitHubRepository(gitHubRepository)
-    if (!repository) {
-      return
-    }
-
     this.repositoryStateCache.updateBranchesState(repository, () => {
       return { openPullRequests }
     })
