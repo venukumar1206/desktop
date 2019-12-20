@@ -1602,11 +1602,14 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   private startPullRequestUpdater(repository: Repository) {
-    // call coordinator
+    const account = getAccountForRepository(this.accounts, repository)
+    if (account !== null) {
+      this.pullRequestCoordinator.startPullRequestUpdater(repository, account)
+    }
   }
 
   private stopPullRequestUpdater() {
-    // call coordinator
+    this.pullRequestCoordinator.stopPullRequestUpdater()
   }
 
   private shouldBackgroundFetch(
