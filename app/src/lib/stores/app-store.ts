@@ -1496,11 +1496,9 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
     if (isRepositoryWithGitHubRepository(repository)) {
       this._refreshIssues(repository.gitHubRepository)
-      this.pullRequestCoordinator
-        .getAllPullRequests(repository)
-        .then(prs => {
-          this.onPullRequestChanged(repository, prs)
-        })
+      this.pullRequestCoordinator.getAllPullRequests(repository).then(prs => {
+        this.onPullRequestChanged(repository, prs)
+      })
     }
 
     // The selected repository could have changed while we were refreshing.
@@ -1606,10 +1604,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
     if (isRepositoryWithGitHubRepository(repository)) {
       const account = getAccountForRepository(this.accounts, repository)
       if (account !== null) {
-        this.pullRequestCoordinator.startPullRequestUpdater(
-          repository,
-          account
-        )
+        this.pullRequestCoordinator.startPullRequestUpdater(repository, account)
       }
     }
   }
@@ -5023,7 +5018,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
           repository,
           account
         )
-      }      
+      }
     }
   }
 
