@@ -5020,14 +5020,6 @@ export class AppStore extends TypedBaseStore<IAppState> {
     await this.pullRequestCoordinator.refreshPullRequests(repository, account)
   }
 
-  private findRepositoryByGitHubRepository(gitHubRepository: GitHubRepository) {
-    return this.repositories.find(
-      r =>
-        r.gitHubRepository !== null &&
-        r.gitHubRepository.dbID === gitHubRepository.dbID
-    )
-  }
-
   private async onPullRequestChanged(
     repository: Repository,
     openPullRequests: ReadonlyArray<PullRequest>
